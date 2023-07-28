@@ -1,10 +1,19 @@
 {
   "name": "collab-group-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Repositório do back-end da aplicação Collab Group",
+  "main": "./src/main.ts",
+  "license": "MIT",
   "private": true,
-  "license": "UNLICENSED",
+  "author": "Collab Group",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "e-commerce",
+    "varejo"
+  ],
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
