@@ -1,0 +1,24 @@
+# folders
+node_modules
+coverage
+dist
+build
+tmp
+.next
+.vercel
+
+# files extension
+**.log**
+**.env**
+**.DS_Store**
+
+# files name and extension
+yarn.lock
+package-lock.json
+notes.md
+production.md
+.favorites.json
+
+# exceptions
+!.env.example
+!.example.env
