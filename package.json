@@ -8,7 +8,7 @@
   "author": "Collab Group",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:CollabTech-org/api.git"
   },
   "keywords": [
     "e-commerce",
