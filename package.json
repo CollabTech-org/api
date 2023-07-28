@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Repositório do back-end da aplicação Collab Group",
   "main": "./src/main.ts",
-  "license": "MIT",
+  "license": "",
   "private": true,
   "author": "Collab Group",
   "repository": {
