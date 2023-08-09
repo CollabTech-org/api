@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core'
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
-import { AppModule } from './modules/app/app.module'
+import { AppModule } from './app.module'
 import { ValidationCustomizedPipe } from './pipes/validation.customized.pipe'
 
 async function bootstrap() {
