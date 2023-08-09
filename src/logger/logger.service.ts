@@ -1,64 +1,41 @@
 import { ConsoleLogger, LoggerService } from '@nestjs/common'
+import { SendMessageLogger } from '../interfaces/send-message-logger.interface'
 import { apiDiscord } from '../lib/discord'
 
-interface ILogger {
-  logLevel: 'LOG' | 'ERROR' | 'WARN' | 'DEBUG' | 'VERBOSE'
-  emoji: '🟢' | '🔴' | '🟡' | '🟣' | '🔵'
-}
-
-interface ISendMessage {
-  logger: ILogger, subContext: string, message: string, stack?: string,
-}
-
 export class MyLoggerService extends ConsoleLogger implements LoggerService {
-  private sendMessage(
-    { logger: { logLevel, emoji }, subContext, message, stack }: ISendMessage,
-  ) {
-    const contexts = `${this.context} ${subContext}`
-    const exitStack = stack ? `${message}\n${stack}` : `${message}`
+  constructor() { super() }
+
+  private sendMessageLogger({ level, emoji, message, stack }: SendMessageLogger) {
+    const preContent = `${emoji} [${level}] [API - ${process.env.NODE_ENV}]`
+    const posContent = stack ? `${message}\n${stack}` : `${message}`
 
     apiDiscord.post(`/${process.env.DISCORD_BOT_ID}/${process.env.DISCORD_BOT_TOKEN}`, {
-      content: `\`\`\`text\n${emoji} [${logLevel}] [API] ${contexts} | ${exitStack}\n\`\`\``,
+      content: `\`\`\`text\n${preContent} ${this.context} | ${posContent}\n\`\`\``,
     }).catch((error) => console.error('error =>', error))
   }
 
-  log(subContext: string, message: string) {
-    super.log(message, `${this.context} ${subContext}`)
-
-    if (process.env.NODE_ENV === 'production') {
-      this.sendMessage({ logger: { logLevel: 'LOG', emoji: '🟢' }, subContext, message })
-    }
+  log(message: string) {
+    super.log(message, this.context)
+    this.sendMessageLogger({ level: 'LOG', emoji: '🟢', message })
   }
 
-  error(subContext: string, message: string, stack?: string) {
-    super.error(message, stack, `${this.context} ${subContext}`)
-
-    if (process.env.NODE_ENV === 'production') {
-      this.sendMessage({ logger: { logLevel: 'ERROR', emoji: '🔴' }, subContext, message, stack })
-    }
+  error(message: string, stack?: unknown) {
+    super.error(message, stack, this.context)
+    this.sendMessageLogger({ level: 'ERROR', emoji: '🔴', message, stack })
   }
 
-  warn(subContext: string, message: string) {
-    super.warn(message, `${this.context} ${subContext}`)
-
-    if (process.env.NODE_ENV === 'production') {
-      this.sendMessage({ logger: { logLevel: 'WARN', emoji: '🟡' }, subContext, message })
-    }
+  warn(message: string) {
+    super.warn(message, this.context)
+    this.sendMessageLogger({ level: 'WARN', emoji: '🟡', message })
   }
 
-  debug(subContext: string, message: string) {
-    super.debug(message, `${this.context} ${subContext}`)
-
-    if (process.env.NODE_ENV === 'production') {
-      this.sendMessage({ logger: { logLevel: 'DEBUG', emoji: '🟣' }, subContext, message })
-    }
+  debug(message: string) {
+    super.debug(message, this.context)
+    this.sendMessageLogger({ level: 'DEBUG', emoji: '🟣', message })
   }
 
-  verbose(subContext: string, message: string) {
-    super.verbose(message, `${this.context} ${subContext}`)
-
-    if (process.env.NODE_ENV === 'production') {
-      this.sendMessage({ logger: { logLevel: 'VERBOSE', emoji: '🔵' }, subContext, message })
-    }
+  verbose(message: string) {
+    super.verbose(message, this.context)
+    this.sendMessageLogger({ level: 'VERBOSE', emoji: '🔵', message })
   }
 }
