@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { AppModule } from '../../../src/app.module'
+import { IndexModule } from '../../../src/app/index.module'
 
 describe('AppModule', () => {
-  let appModule: AppModule
+  let appModule: IndexModule
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [IndexModule],
     }).compile()
 
-    appModule = module.get<AppModule>(AppModule)
+    appModule = module.get<IndexModule>(IndexModule)
   })
 
   it('Should be defined app module', () => {
