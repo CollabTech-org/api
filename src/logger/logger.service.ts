@@ -1,6 +1,6 @@
 import { ConsoleLogger, LoggerService } from '@nestjs/common'
 import { SendMessageLogger } from '../interfaces/send-message-logger.interface'
-import { apiDiscord } from '../lib/discord'
+import { apiDiscord } from '../services/discord'
 
 export class MyLoggerService extends ConsoleLogger implements LoggerService {
   constructor() { super() }
