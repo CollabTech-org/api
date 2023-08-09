@@ -3,39 +3,43 @@ import { SendMessageLogger } from '../interfaces/send-message-logger.interface'
 import { apiDiscord } from '../services/discord'
 
 export class MyLoggerService extends ConsoleLogger implements LoggerService {
-  constructor() { super() }
+  private readonly isProduction = process.env.NODE_ENV === 'production'
 
-  private sendMessageLogger({ level, emoji, message, stack }: SendMessageLogger) {
-    const preContent = `${emoji} [${level}] [API - ${process.env.NODE_ENV}]`
+  private sendMessageLogger({ level, message, stack }: SendMessageLogger) {
+    const emoji = { log: '🟢', error: '🔴', warn: '🟡', debug: '🟣', verbose: '🔵' }
+
+    const preContent = `${emoji[level]} [${level.toUpperCase()}] [API]`
     const posContent = stack ? `${message}\n${stack}` : `${message}`
 
     apiDiscord.post(`/${process.env.DISCORD_BOT_ID}/${process.env.DISCORD_BOT_TOKEN}`, {
       content: `\`\`\`text\n${preContent} ${this.context} | ${posContent}\n\`\`\``,
-    }).catch((error) => console.error('error =>', error))
+    }).catch((error) => {
+      super.error('Unexpected error while sending the logger to the Discord channel', error, 'MyLoggerService')
+    })
   }
 
   log(message: string) {
     super.log(message, this.context)
-    this.sendMessageLogger({ level: 'LOG', emoji: '🟢', message })
+    if (this.isProduction) this.sendMessageLogger({ level: 'log', message })
   }
 
   error(message: string, stack?: unknown) {
     super.error(message, stack, this.context)
-    this.sendMessageLogger({ level: 'ERROR', emoji: '🔴', message, stack })
+    if (this.isProduction) this.sendMessageLogger({ level: 'error', message, stack })
   }
 
   warn(message: string) {
     super.warn(message, this.context)
-    this.sendMessageLogger({ level: 'WARN', emoji: '🟡', message })
+    if (this.isProduction) this.sendMessageLogger({ level: 'warn', message })
   }
 
   debug(message: string) {
     super.debug(message, this.context)
-    this.sendMessageLogger({ level: 'DEBUG', emoji: '🟣', message })
+    if (this.isProduction) this.sendMessageLogger({ level: 'debug', message })
   }
 
   verbose(message: string) {
     super.verbose(message, this.context)
-    this.sendMessageLogger({ level: 'VERBOSE', emoji: '🔵', message })
+    if (this.isProduction) this.sendMessageLogger({ level: 'verbose', message })
   }
 }

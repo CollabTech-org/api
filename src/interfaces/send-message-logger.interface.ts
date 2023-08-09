@@ -1,6 +1,5 @@
 export interface SendMessageLogger {
-  level: 'LOG' | 'ERROR' | 'WARN' | 'DEBUG' | 'VERBOSE'
-  emoji: '🟢' | '🔴' | '🟡' | '🟣' | '🔵'
+  level: 'log' | 'error' | 'warn' | 'debug' | 'verbose'
   message: string
   stack?: unknown
 }
