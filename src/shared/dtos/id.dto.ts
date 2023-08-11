@@ -5,5 +5,5 @@ export class IdDto {
   @IsNotEmpty()
   @IsString()
   @Type(() => String)
-    id: string
+  id: string
 }

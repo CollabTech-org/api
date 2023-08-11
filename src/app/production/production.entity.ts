@@ -23,4 +23,4 @@ export class ProductionEntity implements Production {
   updated_at: Date
 }
 
-export class ProductionPartialEntity extends PartialType(ProductionEntity) {}
+export class ProductionPartialEntity extends PartialType(ProductionEntity) { }

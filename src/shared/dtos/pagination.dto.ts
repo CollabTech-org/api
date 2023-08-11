@@ -7,12 +7,12 @@ export class PaginationDto {
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 0 })
   @Type(() => Number)
-    take?: number
+  take?: number
 
   @Min(1)
   @IsPositive()
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 0 })
   @Type(() => Number)
-    page?: number
+  page?: number
 }

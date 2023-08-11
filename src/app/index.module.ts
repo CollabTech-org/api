@@ -10,4 +10,4 @@ import { ProductionModule } from './production/production.module'
     ProductionModule,
   ],
 })
-export class IndexModule {}
+export class IndexModule { }

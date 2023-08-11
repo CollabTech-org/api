@@ -7,41 +7,41 @@ export class CreateProductionDto {
   @IsNotEmpty()
   @IsString()
   @Type(() => String)
-    name: string
+  name: string
 
   @ArrayUnique()
   @ArrayNotEmpty()
   @IsArray()
   @Type(() => String)
-    category: string[]
+  category: string[]
 
   @IsNotEmpty()
   @IsString()
   @Type(() => String)
-    description: string
+  description: string
 
   @IsPositive()
   @IsNotEmpty()
   @IsNumber({ maxDecimalPlaces: 3 })
   @Type(() => Number)
-    stock: number
+  stock: number
 
   @IsPositive()
   @IsNotEmpty()
   @IsNumber({ maxDecimalPlaces: 3 })
   @Type(() => Number)
-    price: number
+  price: number
 
   @IsPositive()
   @IsNotEmpty()
   @IsNumber({ maxDecimalPlaces: 3 })
   @Type(() => Number)
-    sale_price: number
+  sale_price: number
 
   @IsNotEmpty()
   @IsString()
   @Type(() => String)
-    tags: string
+  tags: string
 }
 
 export class FindProductionDto extends IdDto { }
@@ -52,41 +52,41 @@ export class UpdateProductionDto extends IdDto {
   @IsOptional()
   @IsString()
   @Type(() => String)
-    name?: string
+  name?: string
 
   @ArrayUnique()
   @IsOptional()
   @IsArray()
   @Type(() => String)
-    category?: string[]
+  category?: string[]
 
   @IsOptional()
   @IsString()
   @Type(() => String)
-    description?: string
+  description?: string
 
   @IsPositive()
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 3 })
   @Type(() => Number)
-    stock?: number
+  stock?: number
 
   @IsPositive()
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 3 })
   @Type(() => Number)
-    price?: number
+  price?: number
 
   @IsPositive()
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 3 })
   @Type(() => Number)
-    sale_price?: number
+  sale_price?: number
 
   @IsOptional()
   @IsString()
   @Type(() => String)
-    tags?: string
+  tags?: string
 }
 
 export class DeleteProductionDto extends IdDto { }

@@ -16,7 +16,7 @@ export class ProductionController {
     private readonly findAllProductionUseCase: FindAllProductionUseCase,
     private readonly updateProductionUseCase: UpdateProductionUseCase,
     private readonly deleteProductionUseCase: DeleteProductionUseCase,
-  ) {}
+  ) { }
 
   @Post()
   @HttpCode(201)

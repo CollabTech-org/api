@@ -18,4 +18,4 @@ import { UpdateProductionUseCase } from './useCases/update-production.useCase'
     DeleteProductionUseCase,
   ],
 })
-export class ProductionModule {}
+export class ProductionModule { }
