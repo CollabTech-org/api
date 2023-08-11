@@ -11,6 +11,6 @@ async function bootstrap() {
 
   app.useGlobalPipes(new MyValidationPipe())
 
-  await app.listen(3000)
+  await app.listen(process.env.PORT)
 }
 bootstrap()
