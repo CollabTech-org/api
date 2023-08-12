@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core'
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
 import { IndexModule } from './app/index.module'
-import { MyValidationPipe } from './pipes/my-validation.pipe'
+import { ValidationDtoPipe } from './pipes/validation-dto.pipe'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -9,8 +9,9 @@ async function bootstrap() {
     new FastifyAdapter(),
   )
 
-  app.useGlobalPipes(new MyValidationPipe())
+  app.useGlobalPipes(new ValidationDtoPipe())
 
   await app.listen(process.env.PORT)
 }
+
 bootstrap()
