@@ -1,21 +1,21 @@
 import { Injectable, InternalServerErrorException, NotAcceptableException } from '@nestjs/common'
 import { DatabaseService } from '../../../database/database.service'
 import { MyLoggerService } from '../../../logger/logger.service'
-import { CreateProductionDto } from '../production.dto'
-import { ProductionPartialEntity } from '../production.entity'
+import { CreateProductDto } from '../product.dto'
+import { ProductPartialEntity } from '../product.entity'
 
 @Injectable()
-export class CreateProductionUseCase {
-  private readonly myLoggerService = new MyLoggerService(CreateProductionUseCase.name)
+export class CreateProductUseCase {
+  private readonly myLoggerService = new MyLoggerService(CreateProductUseCase.name)
 
   constructor(
     private readonly databaseService: DatabaseService,
   ) { }
 
-  async execute(data: CreateProductionDto): Promise<ProductionPartialEntity> {
+  async execute(data: CreateProductDto): Promise<ProductPartialEntity> {
     const { name, category, description, stock, price, sale_price, tags } = data
 
-    await this.databaseService.production.findUnique({
+    await this.databaseService.product.findUnique({
       where: { name },
     }).then((response) => {
       if (response) {
@@ -24,7 +24,7 @@ export class CreateProductionUseCase {
       }
     })
 
-    const production = await this.databaseService.production.create({
+    const product = await this.databaseService.product.create({
       data: { name, category, description, stock, price, sale_price, tags },
       select: { id: true },
     }).catch((stack) => {
@@ -34,6 +34,6 @@ export class CreateProductionUseCase {
 
     this.myLoggerService.log('Product created')
 
-    return production
+    return product
   }
 }

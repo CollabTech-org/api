@@ -3,7 +3,7 @@ import { ArrayNotEmpty, ArrayUnique, IsArray, IsNotEmpty, IsNumber, IsOptional, 
 import { IdDto } from '../../shared/dtos/id.dto'
 import { PaginationDto } from '../../shared/dtos/pagination.dto'
 
-export class CreateProductionDto {
+export class CreateProductDto {
   @IsNotEmpty()
   @IsString()
   @Type(() => String)
@@ -44,11 +44,11 @@ export class CreateProductionDto {
   tags: string
 }
 
-export class FindProductionDto extends IdDto { }
+export class FindProductDto extends IdDto { }
 
-export class FindAllProductionDto extends PaginationDto { }
+export class FindAllProductDto extends PaginationDto { }
 
-export class UpdateProductionDto extends IdDto {
+export class UpdateProductDto extends IdDto {
   @IsOptional()
   @IsString()
   @Type(() => String)
@@ -89,4 +89,4 @@ export class UpdateProductionDto extends IdDto {
   tags?: string
 }
 
-export class DeleteProductionDto extends IdDto { }
+export class DeleteProductDto extends IdDto { }

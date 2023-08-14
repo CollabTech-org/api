@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types'
-import { Production } from '@prisma/client'
+import { Product } from '@prisma/client'
 
-export class ProductionEntity implements Production {
+export class ProductEntity implements Product {
   id: string
 
   name: string
@@ -23,4 +23,4 @@ export class ProductionEntity implements Production {
   updated_at: Date
 }
 
-export class ProductionPartialEntity extends PartialType(ProductionEntity) { }
+export class ProductPartialEntity extends PartialType(ProductEntity) { }
