@@ -1,28 +1,28 @@
 import { Injectable, InternalServerErrorException, NotAcceptableException, NotFoundException } from '@nestjs/common'
 import { DatabaseService } from '../../../database/database.service'
 import { MyLoggerService } from '../../../logger/logger.service'
-import { UpdateProductionDto } from '../production.dto'
-import { ProductionPartialEntity } from '../production.entity'
+import { UpdateProductDto } from '../product.dto'
+import { ProductPartialEntity } from '../product.entity'
 
 @Injectable()
-export class UpdateProductionUseCase {
-  private readonly myLoggerService = new MyLoggerService(UpdateProductionUseCase.name)
+export class UpdateProductUseCase {
+  private readonly myLoggerService = new MyLoggerService(UpdateProductUseCase.name)
 
   constructor(
     private readonly databaseService: DatabaseService,
   ) { }
 
-  async execute(data: UpdateProductionDto): Promise<ProductionPartialEntity> {
+  async execute(data: UpdateProductDto): Promise<ProductPartialEntity> {
     const { id, name, category, description, stock, price, sale_price, tags } = data
 
-    await this.databaseService.production.findUniqueOrThrow({
+    await this.databaseService.product.findUniqueOrThrow({
       where: { id },
     }).catch((stack) => {
       this.myLoggerService.error('Product not found', stack)
       throw new NotFoundException('Product not found')
     })
 
-    await this.databaseService.production.findUnique({
+    await this.databaseService.product.findUnique({
       where: { name },
     }).then((response) => {
       if (response) {
@@ -31,7 +31,7 @@ export class UpdateProductionUseCase {
       }
     })
 
-    const productionNew = await this.databaseService.production.update({
+    const productNew = await this.databaseService.product.update({
       where: { id },
       data: { name, category, description, stock, price, sale_price, tags },
       select: { id: true },
@@ -42,6 +42,6 @@ export class UpdateProductionUseCase {
 
     this.myLoggerService.log('Product updated')
 
-    return productionNew
+    return productNew
   }
 }

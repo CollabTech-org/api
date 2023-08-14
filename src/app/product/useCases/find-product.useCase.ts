@@ -1,21 +1,21 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { DatabaseService } from '../../../database/database.service'
 import { MyLoggerService } from '../../../logger/logger.service'
-import { FindProductionDto } from '../production.dto'
-import { ProductionPartialEntity } from '../production.entity'
+import { FindProductDto } from '../product.dto'
+import { ProductPartialEntity } from '../product.entity'
 
 @Injectable()
-export class FindProductionUseCase {
-  private readonly myLoggerService = new MyLoggerService(FindProductionUseCase.name)
+export class FindProductUseCase {
+  private readonly myLoggerService = new MyLoggerService(FindProductUseCase.name)
 
   constructor(
     private readonly databaseService: DatabaseService,
   ) { }
 
-  async execute(data: FindProductionDto): Promise<ProductionPartialEntity> {
+  async execute(data: FindProductDto): Promise<ProductPartialEntity> {
     const { id } = data
 
-    const production = await this.databaseService.production.findUniqueOrThrow({
+    const product = await this.databaseService.product.findUniqueOrThrow({
       where: { id },
     }).catch((stack) => {
       this.myLoggerService.error('Product not found', stack)
@@ -24,6 +24,6 @@ export class FindProductionUseCase {
 
     this.myLoggerService.log('Product found')
 
-    return production
+    return product
   }
 }

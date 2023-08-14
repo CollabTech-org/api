@@ -1,21 +1,21 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common'
 import { DatabaseService } from '../../../database/database.service'
 import { MyLoggerService } from '../../../logger/logger.service'
-import { FindAllProductionDto } from '../production.dto'
-import { ProductionPartialEntity } from '../production.entity'
+import { FindAllProductDto } from '../product.dto'
+import { ProductPartialEntity } from '../product.entity'
 
 @Injectable()
-export class FindAllProductionUseCase {
-  private readonly myLoggerService = new MyLoggerService(FindAllProductionUseCase.name)
+export class FindAllProductUseCase {
+  private readonly myLoggerService = new MyLoggerService(FindAllProductUseCase.name)
 
   constructor(
     private readonly databaseService: DatabaseService,
   ) { }
 
-  async execute(data: FindAllProductionDto): Promise<ProductionPartialEntity[]> {
+  async execute(data: FindAllProductDto): Promise<ProductPartialEntity[]> {
     const { take = 50, page = 1 } = data
 
-    const productions = await this.databaseService.production.findMany({
+    const products = await this.databaseService.product.findMany({
       orderBy: { created_at: 'desc' },
       take,
       skip: page * take - take,
@@ -26,6 +26,6 @@ export class FindAllProductionUseCase {
 
     this.myLoggerService.log('Products found')
 
-    return productions
+    return products
   }
 }
