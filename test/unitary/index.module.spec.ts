@@ -9,10 +9,10 @@ describe('IndexModule', () => {
       imports: [IndexModule],
     }).compile()
 
-    indexModule = module.get<IndexModule>(IndexModule)
+    indexModule = module.get(IndexModule)
   })
 
-  it('Should be defined index module', () => {
-    expect(indexModule).toBeDefined()
+  it('It must be possible to define the index module', async () => {
+    await expect(indexModule).toBeDefined()
   })
 })
