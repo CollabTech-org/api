@@ -5,6 +5,8 @@ import { apiDiscord } from '../services/discord'
 export class MyLoggerService extends ConsoleLogger implements LoggerService {
   private readonly isProduction = process.env.NODE_ENV === 'production'
 
+  private readonly isTest = process.env.NODE_ENV === 'test'
+
   private sendMessageLogger({ level, message, stack }: SendMessageLogger) {
     const emoji = { log: '🟢', error: '🔴', warn: '🟡', debug: '🟣', verbose: '🔵' }
 
@@ -19,27 +21,27 @@ export class MyLoggerService extends ConsoleLogger implements LoggerService {
   }
 
   log(message: string) {
-    super.log(message, this.context)
+    if (!this.isTest) super.log(message, this.context)
     if (this.isProduction) this.sendMessageLogger({ level: 'log', message })
   }
 
   error(message: string, stack?: unknown) {
-    super.error(message, stack, this.context)
+    if (!this.isTest) super.error(message, stack, this.context)
     if (this.isProduction) this.sendMessageLogger({ level: 'error', message, stack })
   }
 
   warn(message: string) {
-    super.warn(message, this.context)
+    if (!this.isTest) super.warn(message, this.context)
     if (this.isProduction) this.sendMessageLogger({ level: 'warn', message })
   }
 
   debug(message: string) {
-    super.debug(message, this.context)
+    if (!this.isTest) super.debug(message, this.context)
     if (this.isProduction) this.sendMessageLogger({ level: 'debug', message })
   }
 
   verbose(message: string) {
-    super.verbose(message, this.context)
+    if (!this.isTest) super.verbose(message, this.context)
     if (this.isProduction) this.sendMessageLogger({ level: 'verbose', message })
   }
 }
