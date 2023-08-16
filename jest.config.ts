@@ -2,7 +2,7 @@ import type { Config } from 'jest'
 
 const config: Config = {
   moduleFileExtensions: ['ts', 'js', 'json'],
-  rootDir: './src/modules/',
+  rootDir: './src/app/',
   roots: ['../../test/unitary/'],
   testRegex: ['.*\\.spec\\.ts$'],
   coverageDirectory: '../../test/unitary/coverage',
