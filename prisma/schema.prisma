@@ -21,3 +21,12 @@ model Product {
 
   @@map("products")
 }
+
+model Category {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("categories")
+}
