@@ -33,7 +33,7 @@ describe('ProductDto', () => {
     }
 
     it('It must be possible to create a valid product', async () => {
-      const dtoInstance = plainToClass(CreateProductDto, data)
+      const dtoInstance = classTransformer.plainToInstance(CreateProductDto, data)
       const validation = await validator.validate(dtoInstance)
 
       await expect(validation).toHaveLength(0)
