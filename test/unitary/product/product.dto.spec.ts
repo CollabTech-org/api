@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { ClassTransformer, plainToClass } from 'class-transformer'
+import { ClassTransformer } from 'class-transformer'
 import { Validator } from 'class-validator'
-import { CreateProductDto } from '../../../src/app/product/product.dto'
+import { CreateProductDto, DeleteProductDto, FindAllProductDto, FindProductDto, UpdateProductDto } from '../../../src/app/product/product.dto'
 
 describe('ProductDto', () => {
   let validator: Validator
@@ -21,7 +21,7 @@ describe('ProductDto', () => {
     await expect(classTransformer).toBeDefined()
   })
 
-  describe('create', () => {
+  it('It must be possible to successfully validate the data of create', async () => {
     const data: CreateProductDto = {
       name: 'name-mock',
       category: ['category-mock'],
@@ -32,18 +32,54 @@ describe('ProductDto', () => {
       tags: 'tag-mock',
     }
 
-    it('It must be possible to create a valid product', async () => {
-      const dtoInstance = plainToClass(CreateProductDto, data)
-      const validation = await validator.validate(dtoInstance)
+    const dtoInstance = classTransformer.plainToInstance(CreateProductDto, data)
+    const validation = await validator.validate(dtoInstance)
 
-      await expect(validation).toHaveLength(0)
-    })
+    await expect(validation).toHaveLength(0)
+  })
 
-    it('It must not be possible to create a valid product', async () => {
-      const dtoInstance = plainToClass(CreateProductDto, {})
-      const validation = await validator.validate(dtoInstance)
+  it('It must be possible to successfully validate the data of find', async () => {
+    const data: FindProductDto = { id: 'id-mock' }
 
-      await expect(validation).toHaveLength(7)
-    })
+    const dtoInstance = classTransformer.plainToInstance(FindProductDto, data)
+    const validation = await validator.validate(dtoInstance)
+
+    await expect(validation).toHaveLength(0)
+  })
+
+  it('It must be possible to successfully validate the data of find all', async () => {
+    const data: FindAllProductDto = { take: 50, page: 1 }
+
+    const dtoInstance = classTransformer.plainToInstance(FindAllProductDto, data)
+    const validation = await validator.validate(dtoInstance)
+
+    await expect(validation).toHaveLength(0)
+  })
+
+  it('It must be possible to successfully validate the data of update', async () => {
+    const data: UpdateProductDto = {
+      id: 'id-mock',
+      name: 'name-update-mock',
+      category: ['category-update-mock'],
+      description: 'description-update-mock',
+      stock: 4,
+      price: 5.55,
+      sale_price: 6.66,
+      tags: 'tag-update-mock',
+    }
+
+    const dtoInstance = classTransformer.plainToInstance(UpdateProductDto, data)
+    const validation = await validator.validate(dtoInstance)
+
+    await expect(validation).toHaveLength(0)
+  })
+
+  it('It must be possible to successfully validate the data of delete', async () => {
+    const data: DeleteProductDto = { id: 'id-mock' }
+
+    const dtoInstance = classTransformer.plainToInstance(DeleteProductDto, data)
+    const validation = await validator.validate(dtoInstance)
+
+    await expect(validation).toHaveLength(0)
   })
 })
