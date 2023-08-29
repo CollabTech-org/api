@@ -14,6 +14,9 @@
     "e-commerce",
     "varejo"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "db": "prisma generate & prisma db push",
     "generate": "prisma generate",
