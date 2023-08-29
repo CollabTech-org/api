@@ -23,7 +23,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node ./dist/src/main",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -33,6 +33,7 @@
     "lint": "eslint . --config .eslintrc.json --ext ts,tsx --fix"
   },
   "dependencies": {
+    "@nestjs/cli": "10.0.0",
     "@nestjs/common": "10.0.0",
     "@nestjs/config": "3.0.0",
     "@nestjs/core": "10.0.0",
@@ -49,7 +50,6 @@
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "10.3.0",
-    "@nestjs/cli": "10.0.0",
     "@nestjs/schematics": "10.0.0",
     "@types/jest": "29.5.2",
     "@types/node": "20.3.1",
