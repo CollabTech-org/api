@@ -14,7 +14,6 @@ tmp
 
 # files name and extension
 yarn.lock
-package-lock.json
 notes.md
 production.md
 .favorites.json
