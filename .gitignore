@@ -13,7 +13,8 @@ tmp
 **.DS_Store**
 
 # files name and extension
-yarn.lock
+!yarn.lock
+!package-lock.json
 notes.md
 production.md
 .favorites.json
